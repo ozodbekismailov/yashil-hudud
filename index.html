@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yashil Hudud | Ekologik platforma</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<style>
+:root{--green:#18794e;--green2:#e7f5ec;--ink:#17352a;--muted:#6b7d74;--line:#e3ebe6;--bg:#f5f8f6;--white:#fff;--orange:#fff2d8;--red:#fde8e7}
+*{box-sizing:border-box}body{margin:0;font-family:Inter,Segoe UI,Arial,sans-serif;background:var(--bg);color:var(--ink)}button,input,select,textarea{font:inherit}button{cursor:pointer;border:0;border-radius:10px;padding:11px 15px;font-weight:650}.primary{background:var(--green);color:#fff}.secondary{background:var(--green2);color:var(--green)}.danger{background:var(--red);color:#a52b24}.muted{color:var(--muted)}.layout{display:grid;grid-template-columns:245px 1fr;min-height:100vh}.sidebar{background:#123d2c;color:#fff;padding:24px 16px;display:flex;flex-direction:column;gap:25px}.brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:18px;padding:0 8px}.brand-icon{width:38px;height:38px;border-radius:12px;background:#d7f5df;color:#176b43;display:grid;place-items:center;font-size:22px}.nav{display:grid;gap:8px}.nav button{background:transparent;color:#cfe2d7;text-align:left;display:flex;gap:12px;align-items:center}.nav button.active,.nav button:hover{background:#235640;color:#fff}.sidebar-note{margin-top:auto;background:#1d4c38;padding:15px;border-radius:14px;font-size:13px;line-height:1.5;color:#d8e8df}.main{min-width:0}.topbar{height:76px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 30px;gap:15px}.topbar h1{font-size:20px;margin:0}.top-actions{display:flex;gap:10px;align-items:center}.pill{background:var(--green2);color:var(--green);padding:7px 10px;border-radius:99px;font-size:12px;font-weight:700}.content{padding:26px 30px;max-width:1500px;margin:auto}.page{display:none}.page.active{display:block}.intro{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;margin-bottom:22px}.intro h2{font-size:25px;margin:0 0 7px}.intro p{margin:0;color:var(--muted);line-height:1.5}.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:15px;margin-bottom:22px}.stat{background:#fff;border:1px solid var(--line);border-radius:16px;padding:19px}.stat-head{display:flex;justify-content:space-between;align-items:center;color:var(--muted);font-size:13px}.stat-icon{width:36px;height:36px;border-radius:11px;display:grid;place-items:center;background:var(--green2);font-size:18px}.stat strong{display:block;font-size:29px;margin:12px 0 5px}.stat small{color:var(--muted)}.panel{background:#fff;border:1px solid var(--line);border-radius:16px;padding:20px;margin-bottom:20px;min-width:0}.panel-title{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:16px}.panel-title h3{margin:0;font-size:17px}.grid2{display:grid;grid-template-columns:1.4fr 1fr;gap:20px}.map{height:410px;border-radius:12px;overflow:hidden;z-index:1}.map-tools{display:flex;gap:8px;flex-wrap:wrap}.map-tools button{padding:8px 10px;font-size:12px}.feed{display:grid;gap:12px}.feed-item{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}.feed-item:last-child{border-bottom:0}.feed-img{width:54px;height:54px;border-radius:12px;background:#e5f3e9;display:grid;place-items:center;font-size:25px;flex-shrink:0}.feed-item strong{display:block;font-size:14px;margin:2px 0 5px}.feed-item small{color:var(--muted)}.status{display:inline-block;font-size:11px;font-weight:700;padding:5px 8px;border-radius:99px;white-space:nowrap}.s-new{background:#e9f2ff;color:#245ba8}.s-progress{background:var(--orange);color:#96600a}.s-done{background:var(--green2);color:var(--green)}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:15px}.field{display:grid;gap:7px}.field.full{grid-column:1/-1}.field label{font-size:13px;font-weight:700}.field input,.field select,.field textarea{width:100%;border:1px solid #d5e1d9;border-radius:10px;padding:12px;background:#fff;outline:none}.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--green);box-shadow:0 0 0 3px #18794e16}.field textarea{min-height:100px;resize:vertical}.help{font-size:12px;color:var(--muted);line-height:1.4}.form-actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:18px}.table-wrap{overflow:auto}table{border-collapse:collapse;width:100%;font-size:13px}th,td{text-align:left;padding:13px 12px;border-bottom:1px solid var(--line);vertical-align:middle}th{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;background:#fbfdfb}td .desc{max-width:280px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.filters{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:15px}.filters input,.filters select{border:1px solid var(--line);border-radius:9px;padding:10px;background:white}.empty{text-align:center;padding:30px;color:var(--muted)}.notice{border-radius:12px;padding:13px 15px;background:#f0f7f2;color:#365d47;font-size:13px;line-height:1.5;margin-bottom:16px}.chart-bars{display:grid;gap:14px}.bar-row{display:grid;grid-template-columns:130px 1fr 32px;gap:10px;align-items:center;font-size:13px}.bar-track{height:10px;background:#edf3ef;border-radius:99px;overflow:hidden}.bar{height:100%;background:var(--green);border-radius:99px}.admin-top{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.footer{padding:18px 30px;color:var(--muted);font-size:12px;text-align:center}.mobile-menu{display:none}
+@media(max-width:1000px){.layout{grid-template-columns:200px 1fr}.stats{grid-template-columns:repeat(2,1fr)}.grid2{grid-template-columns:1fr}.content{padding:20px}.topbar{padding:0 20px}}
+@media(max-width:680px){.layout{grid-template-columns:1fr}.sidebar{padding:12px;gap:12px}.brand{padding:0}.nav{grid-template-columns:repeat(4,1fr);gap:4px}.nav button{justify-content:center;padding:10px 5px;font-size:11px;flex-direction:column;gap:4px}.sidebar-note{display:none}.topbar{height:auto;min-height:65px;padding:13px 16px}.topbar h1{font-size:16px}.top-actions .pill{display:none}.content{padding:15px}.intro{display:block}.intro .primary{margin-top:15px}.stats{gap:9px}.stat{padding:13px}.stat strong{font-size:24px}.stat-head{font-size:11px}.form-grid{grid-template-columns:1fr}.field.full{grid-column:auto}.panel{padding:14px}.map{height:340px}.bar-row{grid-template-columns:100px 1fr 25px}}
+</style>
+</head>
+<body>
+<div class="layout">
+<aside class="sidebar">
+  <div class="brand"><div class="brand-icon">🌿</div><div>Yashil Hudud<small style="display:block;font-size:10px;font-weight:500;color:#b9d7c6;margin-top:2px">EKOLOGIK PLATFORMASI</small></div></div>
+  <nav class="nav">
+    <button class="active" data-page="dashboard"><span>▦</span> Bosh sahifa</button>
+    <button data-page="map"><span>⌖</span> Xarita</button>
+    <button data-page="report"><span>＋</span> Ariza yuborish</button>
+    <button data-page="admin"><span>☷</span> Admin paneli</button>
+  </nav>
+  <div class="sidebar-note"><strong>🌱 Yashil kelajak uchun</strong><br>Har bir xabar yashil hududlarni himoya qilishga yordam beradi. Muammoni ko‘rsangiz, xaritada belgilang.</div>
+</aside>
+<main class="main">
+  <header class="topbar"><h1 id="pageTitle">Bosh sahifa</h1><div class="top-actions"><span class="pill">● Tizim faol</span><button class="secondary" id="quickReport">＋ Yangi ariza</button></div></header>
+  <div class="content">
+    <section class="page active" id="dashboard">
+      <div class="intro"><div><h2>Ekologik holat boshqaruvi</h2><p>Shaharlarimizdagi daraxt va yashil hudud muammolarini kuzating va boshqarib boring.</p></div></div>
+      <div class="stats">
+        <div class="stat"><div class="stat-head">Jami murojaatlar <span class="stat-icon">📋</span></div><strong id="statTotal">0</strong><small>Barcha yuborilgan arizalar</small></div>
+        <div class="stat"><div class="stat-head">Yangi arizalar <span class="stat-icon">🆕</span></div><strong id="statNew">0</strong><small>Yangi kelib tushgan</small></div>
+        <div class="stat"><div class="stat-head">Ko‘rib chiqilmoqda <span class="stat-icon">⏳</span></div><strong id="statProgress">0</strong><small>Jarayondagi murojaatlar</small></div>
+        <div class="stat"><div class="stat-head">Hal qilingan <span class="stat-icon">✅</span></div><strong id="statDone">0</strong><small>Yakunlangan murojaatlar</small></div>
+      </div>
+      <div class="grid2">
+        <div class="panel"><div class="panel-title"><h3>Muammolar xaritasi</h3><button class="secondary" data-goto="map">Xaritani ochish ↗</button></div><div id="dashMap" class="map"></div></div>
+        <div class="panel"><div class="panel-title"><h3>So‘nggi murojaatlar</h3><button class="secondary" data-goto="admin">Barchasi</button></div><div id="recentFeed" class="feed"></div></div>
+      </div>
+      <div class="panel"><div class="panel-title"><h3>Muammolar turlari bo‘yicha</h3><span class="muted" style="font-size:12px">Joriy ma’lumotlar</span></div><div id="typeChart" class="chart-bars"></div></div>
+    </section>
+    <section class="page" id="map">
+      <div class="intro"><div><h2>Muammolar xaritasi</h2><p>Xaritadagi belgini bosing yoki yangi ariza yuborish sahifasida joylashuvni tanlang.</p></div><button class="primary" data-goto="report">＋ Muammo qo‘shish</button></div>
+      <div class="panel"><div class="panel-title"><h3>O‘zbekiston — ekologik murojaatlar</h3><div class="map-tools"><button class="secondary" id="fitMap">Xaritani markazlash</button><button class="secondary" id="locateBtn">📍 Joylashuvim</button></div></div><div id="mainMap" class="map" style="height:560px"></div><p class="help" style="margin-top:12px">Xarita internet orqali yuklanadi. Belgilar demo ma’lumotlari yoki foydalanuvchilar yuborgan murojaatlarni ko‘rsatadi.</p></div>
+    </section>
+    <section class="page" id="report">
+      <div class="intro"><div><h2>Ekologik muammo haqida xabar berish</h2><p>Formani to‘ldiring. Manzilni xaritadan bosib ham tanlashingiz mumkin.</p></div></div>
+      <div class="notice">📌 Iltimos, aniq va ishonchli ma’lumot kiriting. Bu namoyish versiyasida arizalar ushbu brauzerda saqlanadi.</div>
+      <div class="grid2">
+        <div class="panel"><div class="panel-title"><h3>Ariza ma’lumotlari</h3></div>
+          <form id="reportForm">
+            <div class="form-grid">
+              <div class="field"><label for="reporter">Ism (ixtiyoriy)</label><input id="reporter" maxlength="80" placeholder="Ismingiz"></div>
+              <div class="field"><label for="issueType">Muammo turi *</label><select id="issueType" required><option value="">Tanlang</option><option>Daraxt noqonuniy kesilishi</option><option>Daraxt qurib qolishi</option><option>Yashil hudud buzilishi</option><option>Chiqindi va ifloslanish</option><option>Boshqa</option></select></div>
+              <div class="field full"><label for="address">Manzil yoki mo‘ljal *</label><input id="address" required maxlength="180" placeholder="Masalan: Toshkent, Chilonzor tumani..."></div>
+              <div class="field full"><label for="description">Muammo tavsifi *</label><textarea id="description" required maxlength="1200" placeholder="Nima sodir bo‘lganini qisqacha yozing..."></textarea><span class="help">Kamida bir nechta aniq jumla yozish tavsiya etiladi.</span></div>
+              <div class="field full"><label for="photo">Muammo rasmi (ixtiyoriy)</label><input id="photo" type="file" accept="image/*"><span class="help">Namoyish uchun rasm brauzer xotirasida saqlanadi. Juda katta fayllardan foydalanmang.</span></div>
+              <div class="field"><label for="lat">Kenglik (latitude) *</label><input id="lat" type="number" step="any" required placeholder="Xaritadan tanlang"></div>
+              <div class="field"><label for="lng">Uzunlik (longitude) *</label><input id="lng" type="number" step="any" required placeholder="Xaritadan tanlang"></div>
+            </div>
+            <div class="form-actions"><button class="primary" type="submit">Arizani yuborish →</button><button class="secondary" type="reset" id="resetForm">Tozalash</button></div>
+            <p id="formMessage" class="help" role="status"></p>
+          </form>
+        </div>
+        <div class="panel"><div class="panel-title"><h3>Joylashuvni xaritada tanlang</h3></div><div id="pickMap" class="map" style="height:400px"></div><p class="help" style="margin-top:12px">Xaritani bosganingizda koordinatalar avtomatik to‘ldiriladi.</p></div>
+      </div>
+    </section>
+    <section class="page" id="admin">
+      <div class="intro"><div><h2>Administrator paneli</h2><p>Murojaatlarni ko‘ring, qidiring va holatini yangilang.</p></div><div class="admin-top"><button class="secondary" id="exportBtn">⬇ CSV eksport</button><button class="danger" id="clearBtn">Demo ma’lumotlarini tiklash</button></div></div>
+      <div class="notice">🔐 Bu o‘quv prototipida admin paneli parol bilan himoyalanmagan. Haqiqiy tizimga joylashtirishdan oldin server tomondagi autentifikatsiya qo‘shilishi shart.</div>
+      <div class="panel"><div class="filters"><input id="searchInput" placeholder="Ariza, manzil yoki tavsifdan qidirish..."><select id="statusFilter"><option value="">Barcha holatlar</option><option>Yangi</option><option>Ko‘rib chiqilmoqda</option><option>Bajarildi</option></select><select id="typeFilter"><option value="">Barcha muammo turlari</option><option>Daraxt noqonuniy kesilishi</option><option>Daraxt qurib qolishi</option><option>Yashil hudud buzilishi</option><option>Chiqindi va ifloslanish</option><option>Boshqa</option></select></div>
+      <div class="table-wrap"><table><thead><tr><th>ID / Sana</th><th>Muammo</th><th>Manzil</th><th>Holat</th><th>Amal</th></tr></thead><tbody id="adminRows"></tbody></table><div id="emptyRows" class="empty" style="display:none">Hozircha arizalar topilmadi.</div></div></div>
+    </section>
+  </div>
+  <div class="footer">Yashil Hudud • O‘quv loyihasi • Ekologik muammolarni xaritalash platformasi</div>
+</main>
+</div>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+const STORAGE_KEY='yashilHududReports_v1';
+const demoReports=[
+{id:'YH-1001',reporter:'Demo foydalanuvchi',type:'Daraxt noqonuniy kesilishi',address:'Toshkent, Chilonzor tumani',description:'Yo‘l chetidagi bir nechta daraxt kesilgani haqida xabar.',lat:41.2754,lng:69.2032,status:'Yangi',date:'2026-10-12T09:20:00.000Z',photo:''},
+{id:'YH-1002',reporter:'Mahalla faoli',type:'Yashil hudud buzilishi',address:'Toshkent, Yunusobod tumani',description:'Yashil maydon qurilish materiallari bilan band qilingan.',lat:41.3656,lng:69.2872,status:'Ko‘rib chiqilmoqda',date:'2026-10-11T14:10:00.000Z',photo:''},
+{id:'YH-1003',reporter:'Demo foydalanuvchi',type:'Daraxt qurib qolishi',address:'Toshkent, Mirzo Ulug‘bek tumani',description:'Ko‘cha bo‘yidagi daraxt qurib qolgan, tekshirish kerak.',lat:41.3268,lng:69.3342,status:'Bajarildi',date:'2026-10-09T08:30:00.000Z',photo:''},
+{id:'YH-1004',reporter:'Ko‘ngilli',type:'Chiqindi va ifloslanish',address:'Toshkent, Shayxontohur tumani',description:'Park yaqinida chiqindilar yig‘ilib qolgan.',lat:41.3211,lng:69.2354,status:'Yangi',date:'2026-10-08T11:05:00.000Z',photo:''}
+];
+let reports=loadReports(), maps={}, markerLayers={};
+function loadReports(){try{const x=localStorage.getItem(STORAGE_KEY);return x?JSON.parse(x):JSON.parse(JSON.stringify(demoReports))}catch(e){return JSON.parse(JSON.stringify(demoReports))}}
+function saveReports(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify(reports))}catch(e){alert('Brauzer xotirasi to‘ldi. Kichikroq rasm yuklang yoki rasmni olib tashlang.');}}
+function esc(s=''){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function fmtDate(s){return new Date(s).toLocaleDateString('uz-UZ',{year:'numeric',month:'short',day:'numeric'})}
+function statusClass(s){return s==='Bajarildi'?'s-done':s==='Ko‘rib chiqilmoqda'?'s-progress':'s-new'}
+function badge(s){return `<span class="status ${statusClass(s)}">${esc(s)}</span>`}
+function iconFor(t){return t.includes('kesilishi')?'🪓':t.includes('qurib')?'🌳':t.includes('Yashil')?'🏞️':t.includes('Chiqindi')?'🗑️':'🌱'}
+function initMap(id,center=[41.3111,69.2797],zoom=11){
+ const map=L.map(id).setView(center,zoom);
+ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'&copy; OpenStreetMap contributors'}).addTo(map);
+ maps[id]=map; markerLayers[id]=L.layerGroup().addTo(map);return map;
+}
+function addMarkers(id){if(!maps[id])return;markerLayers[id].clearLayers();reports.forEach(r=>{if(Number.isFinite(+r.lat)&&Number.isFinite(+r.lng)){const m=L.marker([+r.lat,+r.lng]).addTo(markerLayers[id]);m.bindPopup(`<strong>${esc(r.type)}</strong><br>${esc(r.address)}<br>${badge(r.status)}<p>${esc(r.description)}</p><small>${esc(r.id)} • ${fmtDate(r.date)}</small>`);}})}
+function refreshMaps(){['dashMap','mainMap','pickMap'].forEach(addMarkers)}
+function showPage(page){document.querySelectorAll('.page').forEach(p=>p.classList.toggle('active',p.id===page));document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===page));const names={dashboard:'Bosh sahifa',map:'Muammolar xaritasi',report:'Ariza yuborish',admin:'Administrator paneli'};document.getElementById('pageTitle').textContent=names[page]||'Yashil Hudud';setTimeout(()=>Object.values(maps).forEach(m=>m.invalidateSize()),80);if(page==='admin')renderAdmin();if(page==='report')setTimeout(()=>maps.pickMap?.invalidateSize(),100)}
+document.querySelectorAll('[data-page]').forEach(b=>b.addEventListener('click',()=>showPage(b.dataset.page)));
+document.querySelectorAll('[data-goto]').forEach(b=>b.addEventListener('click',()=>showPage(b.dataset.goto)));
+document.getElementById('quickReport').addEventListener('click',()=>showPage('report'));
+function renderStats(){const total=reports.length,n=reports.filter(r=>r.status==='Yangi').length,p=reports.filter(r=>r.status==='Ko‘rib chiqilmoqda').length,d=reports.filter(r=>r.status==='Bajarildi').length;document.getElementById('statTotal').textContent=total;document.getElementById('statNew').textContent=n;document.getElementById('statProgress').textContent=p;document.getElementById('statDone').textContent=d;
+ const recent=[...reports].sort((a,b)=>new Date(b.date)-new Date(a.date)).slice(0,4);document.getElementById('recentFeed').innerHTML=recent.length?recent.map(r=>`<div class="feed-item"><div class="feed-img">${iconFor(r.type)}</div><div style="min-width:0;flex:1"><strong>${esc(r.type)}</strong><small>${esc(r.address)}<br>${fmtDate(r.date)} · ${badge(r.status)}</small></div></div>`).join(''):'<div class="empty">Hali murojaat yo‘q.</div>';
+ const types=[...new Set([...reports.map(r=>r.type),'Daraxt noqonuniy kesilishi','Daraxt qurib qolishi','Yashil hudud buzilishi','Chiqindi va ifloslanish'])].slice(0,6).map(t=>({t,n:reports.filter(r=>r.type===t).length}));const max=Math.max(1,...types.map(x=>x.n));document.getElementById('typeChart').innerHTML=types.map(x=>`<div class="bar-row"><span>${esc(x.t)}</span><div class="bar-track"><div class="bar" style="width:${x.n/max*100}%"></div></div><strong>${x.n}</strong></div>`).join('');
+}
+function renderAdmin(){const q=(document.getElementById('searchInput').value||'').toLowerCase(),s=document.getElementById('statusFilter').value,t=document.getElementById('typeFilter').value;const filtered=[...reports].sort((a,b)=>new Date(b.date)-new Date(a.date)).filter(r=>(!s||r.status===s)&&(!t||r.type===t)&&[r.id,r.type,r.address,r.description,r.reporter].join(' ').toLowerCase().includes(q));document.getElementById('adminRows').innerHTML=filtered.map(r=>`<tr><td><strong>${esc(r.id)}</strong><br><small class="muted">${fmtDate(r.date)}</small></td><td><strong>${esc(r.type)}</strong><div class="desc muted">${esc(r.description)}</div></td><td>${esc(r.address)}<br><small class="muted">${Number(r.lat).toFixed(4)}, ${Number(r.lng).toFixed(4)}</small></td><td><select aria-label="Holat ${esc(r.id)}" onchange="changeStatus('${esc(r.id)}',this.value)" style="border:1px solid #dce7df;border-radius:8px;padding:7px;max-width:170px"><option ${r.status==='Yangi'?'selected':''}>Yangi</option><option ${r.status==='Ko‘rib chiqilmoqda'?'selected':''}>Ko‘rib chiqilmoqda</option><option ${r.status==='Bajarildi'?'selected':''}>Bajarildi</option></select></td><td><button class="danger" onclick="deleteReport('${esc(r.id)}')">O‘chirish</button></td></tr>`).join('');document.getElementById('emptyRows').style.display=filtered.length?'none':'block'}
+window.changeStatus=(id,status)=>{const r=reports.find(x=>x.id===id);if(r){r.status=status;saveReports();refreshAll()}};
+window.deleteReport=(id)=>{if(confirm(id+' arizasini o‘chirmoqchimisiz?')){reports=reports.filter(x=>x.id!==id);saveReports();refreshAll()}};
+function refreshAll(){renderStats();renderAdmin();refreshMaps()}
+['searchInput','statusFilter','typeFilter'].forEach(id=>document.getElementById(id).addEventListener('input',renderAdmin));
+let pickMarker=null;
+document.getElementById('reportForm').addEventListener('submit',async e=>{e.preventDefault();const lat=parseFloat(document.getElementById('lat').value),lng=parseFloat(document.getElementById('lng').value);if(!Number.isFinite(lat)||!Number.isFinite(lng)||Math.abs(lat)>90||Math.abs(lng)>180){document.getElementById('formMessage').textContent='Iltimos, xaritadan to‘g‘ri joylashuv tanlang.';return}
+ let photo='';const file=document.getElementById('photo').files[0];if(file){if(file.size>500000){document.getElementById('formMessage').textContent='Rasm 500 KB dan kichik bo‘lishi kerak.';return}photo=await new Promise((resolve,reject)=>{const reader=new FileReader();reader.onload=()=>resolve(reader.result);reader.onerror=reject;reader.readAsDataURL(file)})}
+ const report={id:'YH-'+Date.now().toString().slice(-7),reporter:document.getElementById('reporter').value.trim()||'Anonim',type:document.getElementById('issueType').value,address:document.getElementById('address').value.trim(),description:document.getElementById('description').value.trim(),lat,lng,status:'Yangi',date:new Date().toISOString(),photo};
+ reports.unshift(report);saveReports();refreshAll();e.target.reset();if(pickMarker){maps.pickMap.removeLayer(pickMarker);pickMarker=null}document.getElementById('lat').value='';document.getElementById('lng').value='';document.getElementById('formMessage').textContent='Ariza muvaffaqiyatli saqlandi! ID: '+report.id+' (ushbu brauzerda).';showPage('admin');});
+document.getElementById('resetForm').addEventListener('click',()=>{document.getElementById('formMessage').textContent='';setTimeout(()=>{document.getElementById('lat').value='';document.getElementById('lng').value=''},0)});
+document.getElementById('exportBtn').addEventListener('click',()=>{const cols=['id','date','reporter','type','address','description','lat','lng','status'];const csv=[cols.join(','),...reports.map(r=>cols.map(k=>'"'+String(r[k]??'').replace(/"/g,'""')+'"').join(','))].join('\r\n');const blob=new Blob(['\ufeff'+csv],{type:'text/csv;charset=utf-8;'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='yashil-hudud-arizalar.csv';a.click();URL.revokeObjectURL(url)});
+document.getElementById('clearBtn').addEventListener('click',()=>{if(confirm('Barcha o‘zgarishlarni o‘chirib, boshlang‘ich demo arizalarini tiklaysizmi?')){reports=JSON.parse(JSON.stringify(demoReports));saveReports();refreshAll()}});
+document.getElementById('fitMap').addEventListener('click',()=>maps.mainMap.setView([41.3111,69.2797],11));
+document.getElementById('locateBtn').addEventListener('click',()=>{if(!navigator.geolocation){alert('Brauzer joylashuvni qo‘llamaydi.');return}navigator.geolocation.getCurrentPosition(p=>{maps.mainMap.setView([p.coords.latitude,p.coords.longitude],15);L.marker([p.coords.latitude,p.coords.longitude]).addTo(maps.mainMap).bindPopup('Sizning taxminiy joylashuvingiz').openPopup()},()=>alert('Joylashuvga ruxsat berilmadi yoki aniqlanmadi.'))});
+initMap('dashMap',[41.3111,69.2797],10);initMap('mainMap',[41.3111,69.2797],11);const pm=initMap('pickMap',[41.3111,69.2797],11);pm.on('click',e=>{document.getElementById('lat').value=e.latlng.lat.toFixed(6);document.getElementById('lng').value=e.latlng.lng.toFixed(6);if(pickMarker)pm.removeLayer(pickMarker);pickMarker=L.marker(e.latlng).addTo(pm).bindPopup('Tanlangan muammo joylashuvi').openPopup()});
+refreshAll();setTimeout(()=>Object.values(maps).forEach(m=>m.invalidateSize()),200);
+</script>
+</body>
+</html>
